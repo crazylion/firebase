@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
+
+<script>try{Typekit.load({ async: true });}catch(e){}</script>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+<link rel='stylesheet prefetch' href='style.css' />
+</head><body>
+
+
+<div id="frame">
+	<div class="content">
+		<div class="contact-profile">
+			<p style="margin-left: 40%;">世界上第一個聊天室 - 伊甸園</p>
+			
+		</div>
+		<div class="messages" id="chatBox">
+			<ul>
+				
+			</ul>
+		</div>
+		<div class="message-input">
+			<div class="wrap">
+			<input type="text" placeholder="Your are ..."  id="username" />
+			<input type="text" placeholder="Write your message..." id="message" />
+			<button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+  $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+  var user_id;
+
+  function newMessage() {
+    
+    message = $("#message").val();
+    if($.trim(message) == '') {
+      return false;
+    }
+    writeUserData(message);
+  };
+
+  $('.submit').click(function() {
+    newMessage();
+  });
+
+  $(window).on('keydown', function(e) {
+
+    if (e.which == 13) {
+      newMessage();
+      return false;
+    }
+  });
+</script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBXDGzTryu3eYGZh9Y3AvERfUjfPgko720",
+    authDomain: "chat-792e3.firebaseapp.com",
+    databaseURL: "https://chat-792e3.firebaseio.com",
+    projectId: "chat-792e3",
+    storageBucket: "chat-792e3.appspot.com",
+    messagingSenderId: "763542529775"
+  };
+    firebase.initializeApp(config);
+
+    var user = firebase.auth().signInAnonymously();
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        var isAnonymous = user.isAnonymous;
+        user_id = user.uid;
+      } else {
+        // User is signed out.
+      }
+    });
+</script>
+
+<script src="main.js"></script>
+
+
+</body></html>
